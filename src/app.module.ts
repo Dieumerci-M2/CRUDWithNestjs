@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { join } from 'path';
+import { CitiesModule } from './cities/cities.module';
 
 
 @Module({
@@ -19,13 +20,14 @@ import { join } from 'path';
         port: +configService.get("DB_PORT"),
         username: configService.get("DB_USERNAME"),
         password: configService.get("DB_PASSWORD"),
-        database: configService.get("DB-NAME"),
+        database: configService.get("DB_NAME"),
         entities: [join(process.cwd(), "dist/**/*.entity.js")], 
         // Do not set synchronize to true on real project
         synchronize: true,
       })
      
     }),
+    CitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
